@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
     private final Handler handler = new Handler(Looper.getMainLooper());
     private TextView clockView, countdownView, statusView, targetView;
     private Button estimateButton;
-    private long targetMillis = 0L;
+    private String selectedGame = "LUCKY JET";                                private long targetMillis = 0L;
     private final ArrayDeque<String> history = new ArrayDeque<>();
     private LinearLayout historyList;
 
@@ -66,8 +66,35 @@ public class MainActivity extends Activity {
         TextView sub = text("PREMIUM  •  ESTIMATEUR INDICATIF", 11, 0xFFB7C4D6, true);
         sub.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams subLp = matchWrap(); subLp.bottomMargin = dp(24);
-        page.addView(sub, subLp);
+        page.addView(sub, subLp);                                                                                                                                                                               
+LinearLayout gameSelector = new LinearLayout(this);
+gameSelector.setOrientation(LinearLayout.HORIZONTAL);
 
+Button luckyButton = new Button(this);
+luckyButton.setText("LUCKY JET");
+
+Button aviatorButton = new Button(this);
+aviatorButton.setText("AVIATOR");
+
+luckyButton.setOnClickListener(v -> {
+    selectedGame = "LUCKY JET";
+    luckyButton.setText("✓ LUCKY JET");
+    aviatorButton.setText("AVIATOR");
+});
+
+aviatorButton.setOnClickListener(v -> {
+    selectedGame = "AVIATOR";
+    aviatorButton.setText("✓ AVIATOR");
+    luckyButton.setText("LUCKY JET");
+});
+
+gameSelector.addView(luckyButton,
+    new LinearLayout.LayoutParams(0, dp(55), 1));
+
+gameSelector.addView(aviatorButton,
+    new LinearLayout.LayoutParams(0, dp(55), 1));
+
+page.addView(gameSelector, matchWrap());
         clockView = text("", 13, 0xFFE7EDF5, true);
         clockView.setGravity(Gravity.CENTER);
         page.addView(clockView, matchWrap());
